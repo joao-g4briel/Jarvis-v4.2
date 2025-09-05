@@ -36,11 +36,16 @@
 			document.getElementById('loginForm').style.display = 'block';
 		}
 
+		// Detecta ambiente e define a URL base do backend
+		const backendUrl = (window.location.hostname.includes('localhost') || window.location.hostname === '127.0.0.1')
+			? 'http://localhost:3000'
+			: 'https://wggks448w0wok8okwo0ww4w0.coolify.dtecchat.qzz.io';
+
 		async function register() {
 			const username = document.getElementById('regUsername').value;
 			const password = document.getElementById('regPassword').value;
 
-			const res = await fetch('http://localhost:3000/register', {
+			const res = await fetch(`${backendUrl}/register`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ username, password })
@@ -59,7 +64,7 @@
 			const username = document.getElementById('loginUsername').value;
 			const password = document.getElementById('loginPassword').value;
 
-			const res = await fetch('http://localhost:3000/login', {
+			const res = await fetch(`${backendUrl}/login`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ username, password })
