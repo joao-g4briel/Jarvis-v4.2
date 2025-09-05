@@ -1,17 +1,20 @@
 FROM node:18-alpine
 
 # Criar diretório da aplicação
+
+
+
 WORKDIR /app
 
 # Copiar os arquivos de dependências
-COPY backend/package*.json ./backend/
+COPY chatbot/backend/package*.json ./backend/
 
 # Instalar dependências
 WORKDIR /app/backend
 RUN npm install --production
 
 # Copiar o restante do código
-COPY backend/ /app/backend
+COPY chatbot/backend/ /app/backend
 
 # Definir porta
 ENV PORT=3000
