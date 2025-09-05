@@ -23,12 +23,17 @@
 		let userId = localStorage.getItem('userId');
 		let conversationId = null;
 
+		// Detecta ambiente e define a URL base do backend
+		const backendUrl = (window.location.hostname.includes('localhost') || window.location.hostname === '127.0.0.1')
+			? 'http://localhost:3000'
+			: 'https://wggks448w0wok8okwo0ww4w0.coolify.dtecchat.qzz.io';
+
 		if (!userId) {
 			window.location.href = 'login.html';
 		}
 
 		async function createConversation() {
-			const res = await fetch('http://localhost:3000/conversations', {
+			const res = await fetch(`${backendUrl}/conversations`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ userId, title: 'Conversa ' + new Date().toLocaleString() })
@@ -40,7 +45,7 @@
 		async function loadMessages() {
 			if (!conversationId) await createConversation();
             
-			const res = await fetch(`http://localhost:3000/messages/${conversationId}`);
+			const res = await fetch(`${backendUrl}/messages/${conversationId}`);
 			const messages = await res.json();
             
 			const chatDiv = document.getElementById('chat');
@@ -60,7 +65,7 @@
 			chatDiv.innerHTML += `<div class="message user"><strong>user:</strong> ${message}</div>`;
 			chatDiv.scrollTop = chatDiv.scrollHeight;
 
-			const res = await fetch('http://localhost:3000/chat', {
+			const res = await fetch(`${backendUrl}/chat`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ message, userId, conversationId })
