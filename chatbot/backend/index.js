@@ -138,7 +138,7 @@ app.post('/chat', async (req, res) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'deepseek/deepseek-chat-v3.1:free',
+        model: 'z-ai/glm-4.5-air:free',
         messages: [{ role: 'user', content: message }]
       })
     });

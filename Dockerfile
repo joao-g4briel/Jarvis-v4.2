@@ -15,6 +15,7 @@ RUN npm install --production
 
 # Copiar o restante do código
 COPY chatbot/backend/ /app/backend
+COPY chatbot/backend/.env /app/backend/.env
 
 # Definir porta
 ENV PORT=3000
